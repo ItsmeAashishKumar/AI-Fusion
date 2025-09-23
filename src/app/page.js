@@ -1,17 +1,17 @@
-'use client'
-import { Button } from '@/components/ui/button'
-import React from 'react'
-import { useTheme } from 'next-themes'
-import { Sun } from 'lucide-react'
-import { AppSidebar } from '@/app/_components/Sidebar'
+// 3. Fixed Page.jsx
+'use client';
+import React from 'react';
+import { useTheme } from 'next-themes';
+import ChatInputBox from './_components/ChatInputBox';
 
-function page() {
-  const { theme, setTheme } = useTheme()
+function Page() {
+  const { theme, setTheme } = useTheme();
+  
   return (
-    <div className='w-full'>
-      <AppSidebar />
+    <div className="h-full w-full overflow-hidden">
+      <ChatInputBox />
     </div>
-  )
+  );
 }
 
-export default page
+export default Page;

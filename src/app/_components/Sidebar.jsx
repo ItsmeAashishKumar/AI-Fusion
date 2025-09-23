@@ -8,11 +8,14 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import { useTheme } from "next-themes"
-import { Moon, Sun, Plus, MessageSquare } from "lucide-react"
+import { Moon, Sun, Plus, MessageSquare, Zap, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { SignIn, SignInButton, useUser } from "@clerk/nextjs"
+import Progressbar from "./Progressbar"
 
 export function AppSidebar() {
   const { theme, setTheme } = useTheme()
+  const { user } = useUser()
 
   return (
     <Sidebar className="bg-background shadow-md">
@@ -50,21 +53,34 @@ export function AppSidebar() {
       </SidebarHeader>
 
 
-      <SidebarContent className="p-4 space-y-3">
+      <SidebarContent className="px-4 py-3 space-y-0 ">
+        {!user ?
+          <SignInButton>
+            <Button
+              size="lg"
+              className="w-full justify-center gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              New Chat
+            </Button>
+          </SignInButton>
 
-        <Button
-          size="lg"
-          className="w-full justify-center gap-2"
-        >
-          <Plus className="h-4 w-4" />
-          New Chat
-        </Button>
+          :
+          <Button
+            size="lg"
+            className="w-full justify-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            New Chat
+          </Button>
+        }
 
 
-        <SidebarGroup className="space-y-2">
-          <div className="flex flex-col  justify-center"> 
+
+        <SidebarGroup className="space-y-0">
+          <div className="flex flex-col  justify-center">
             <p className="text-lg font-bold">Chat</p>
-            <p className="text-sm text-gray-600">Sign in to start chatting with multiple AI model</p>
+            {!user && <p className="text-sm text-gray-600">Sign in to start chatting with multiple AI model</p>}
           </div>
 
         </SidebarGroup>
@@ -72,9 +88,23 @@ export function AppSidebar() {
 
 
       <SidebarFooter className="border-t p-4 text-sm text-muted-foreground">
-        <Button className={'w-full'}>
-          Sign In/Sign Up
-        </Button>
+        {!user ?
+          <SignInButton mode="modal">
+            <Button className={'w-full'}>
+              Sign In/Sign Up
+            </Button>
+          </SignInButton>
+          :
+          <div className="w-full flex flex-col gap-3">
+            <Progressbar />
+            <div className="w-full"><Button className={'w-full'}><Zap />Upgrade Plan</Button></div>
+            <Button
+              variant={'ghost'}
+              className="w-full flex justify-center items-center gap-4">
+              <User />Settings</Button>
+          </div>
+        }
+
       </SidebarFooter>
     </Sidebar>
   )

@@ -143,3 +143,43 @@
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
+
+
+
+
+/* Add to globals.css */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.hover-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hover-scrollbar::-webkit-scrollbar {
+  width: 0px;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
